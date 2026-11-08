@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CICADA — учебный книжный магазин. Классика, ужасы и фантастика.">
+  <title>CICADA — Заказ</title>
+  <!-- Один и тот же значок вкладки используется на всех страницах. -->
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="images/favicon.png" sizes="64x64">
+  <!-- Сначала подключаем Bootstrap, затем собственные стили макета. -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <!-- Общая шапка: логотип ведёт на главную, меню связывает страницы. -->
+  <header class="site-header">
+    <div class="container site-container header-inner">
+      <a class="navbar-brand brand" href="index.html" aria-label="CICADA — на главную">
+        <img class="brand-logo" src="images/лого1.jpg" alt="Логотип CICADA — цикада" width="50" height="50">
+        <span><span class="brand-name">CICADA</span><span class="brand-caption">Книжный магазин</span></span>
+      </a>
+      <nav aria-label="Основное меню">
+        <ul class="nav site-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+          <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
+          <li class="nav-item"><a class="nav-link active" href="order.html" aria-current="page">Заказать</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container site-container order-main" id="main">
+    <h1>Оформление заказа</h1>
+    <p class="order-notice">Учебная форма: заказ никуда не отправляется, оплата не производится.</p>
+    <!-- Одна форма объединяет данные покупателя и выбор книги. -->
+    <form id="order-form" class="row g-4 g-lg-5">
+      <div class="col-lg-7">
+        <section class="customer-panel" aria-labelledby="customer-title">
+          <h2 id="customer-title">Данные покупателя</h2>
+          <div class="mb-3">
+            <label class="form-label" for="customer-name">Имя *</label>
+            <input class="form-control" id="customer-name" name="customerName" type="text" placeholder="Введите имя" autocomplete="name" minlength="2" maxlength="80" pattern=".*\S.*" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="customer-email">Email *</label>
+            <input class="form-control" id="customer-email" name="email" type="email" placeholder="Введите почту" autocomplete="email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="customer-phone">Телефон *</label>
+            <input class="form-control" id="customer-phone" name="phone" type="tel" placeholder="+7 (999) 123-45-67" autocomplete="tel" pattern="[+0-9\(\) \-]{10,20}" aria-describedby="phone-hint" required>
+            <div id="phone-hint" class="form-text">От 10 до 15 цифр; допустимы +, пробелы, скобки и дефисы.</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="delivery">Способ получения *</label>
+            <select class="form-select" id="delivery" name="delivery" required>
+              <option value="pickup">Самовывоз</option>
+              <option value="courier">Доставка</option>
+            </select>
+          </div>
+          <!-- Адрес становится обязательным только для доставки. -->
+          <div class="mb-3" id="address-group" hidden>
+            <label class="form-label" for="address">Адрес доставки *</label>
+            <input class="form-control" id="address" name="address" type="text" autocomplete="street-address" placeholder="Город, улица, дом, квартира" minlength="5" maxlength="200" disabled>
+          </div>
+          <p class="form-text">* Обязательные поля. Стоимость доставки в учебной форме не рассчитывается.</p>
+          <button class="btn btn-primary btn-lg" id="submit-order" type="submit" disabled>Отправить заказ</button>
+          <p class="alert alert-success mt-3 mb-0" id="order-result" role="status" tabindex="-1" hidden></p>
+          <noscript><p class="alert alert-warning mt-3">Для расчёта и проверки учебного заказа включите JavaScript. Форма без него не отправляется.</p></noscript>
+        </section>
+      </div>
+      <div class="col-lg-5">
+        <aside class="summary-panel" aria-labelledby="summary-title">
+          <h2 id="summary-title">Ваш заказ</h2>
+          <div class="mb-3">
+            <label class="form-label" for="book-select">Книга</label>
+            <select class="form-select" id="book-select" name="book">
+                <option value="3" data-title="Божественная комедия" data-author="Данте Алигьери" data-price="1239" data-image="images/книга6.jpg">Божественная комедия — 1239 ₽</option>
+                <option value="4" data-title="Дракула" data-author="Брэм Стокер" data-price="2190" data-image="images/книга5.jpg">Дракула — 2190 ₽</option>
+                <option value="5" data-title="Далеко за полночь" data-author="Рэй Брэдбери" data-price="340" data-image="images/книга4.jpg">Далеко за полночь — 340 ₽</option>
+                <option value="6" data-title="Канашибари" data-author="Ангелина и Вероника Шен" data-price="910" data-image="images/книга2.jpg">Канашибари — 910 ₽</option>
+                <option value="7" data-title="1984" data-author="Джордж Оруэлл" data-price="760" data-image="images/книга3.jpg" selected>1984 — 760 ₽</option>
+                <option value="8" data-title="Косиног" data-author="Джеральд Бром" data-price="890" data-image="images/книга 1.jpg">Косиног — 890 ₽</option>
+            </select>
+          </div>
+          <div class="d-flex gap-3 mb-3 align-items-start">
+            <img id="summary-cover" class="summary-cover" src="images/книга3.jpg" alt="Обложка книги «1984»" width="80" height="122">
+            <div><h3 id="summary-book-title">1984</h3><p id="summary-author">Джордж Оруэлл</p></div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="quantity">Количество *</label>
+            <input class="form-control quantity-input" id="quantity" name="quantity" type="number" min="1" max="99" step="1" value="1" required>
+          </div>
+          <p class="summary-total" aria-live="polite">Итого: <output id="order-total" for="book-select quantity">760 ₽</output></p>
+        </aside>
+      </div>
+    </form>
+  </main>
+  <!-- Общий подвал сохранён на каждой странице, как в макете Figma. -->
+  <footer class="site-footer">
+    <div class="container site-container row-gap-4 d-flex flex-wrap justify-content-between">
+      <div>
+        <p class="footer-title">Книжный магазин «CICADA»</p>
+        <p class="mb-0">© 2026. Учебный макет.</p>
+      </div>
+      <div>
+        <p class="footer-title">Контакты</p>
+        <a href="mailto:cicadabooks@example.com">cicadabooks@example.com</a>
+        <p class="mb-0 mt-2">Доставка и самовывоз</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

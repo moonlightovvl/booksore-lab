@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CICADA — учебный книжный магазин. Классика, ужасы и фантастика.">
+  <title>CICADA — Каталог</title>
+  <!-- Один и тот же значок вкладки используется на всех страницах. -->
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="images/favicon.png" sizes="64x64">
+  <!-- Сначала подключаем Bootstrap, затем собственные стили макета. -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <!-- Общая шапка: логотип ведёт на главную, меню связывает страницы. -->
+  <header class="site-header">
+    <div class="container site-container header-inner">
+      <a class="navbar-brand brand" href="index.html" aria-label="CICADA — на главную">
+        <img class="brand-logo" src="images/лого1.jpg" alt="Логотип CICADA — цикада" width="50" height="50">
+        <span><span class="brand-name">CICADA</span><span class="brand-caption">Книжный магазин</span></span>
+      </a>
+      <nav aria-label="Основное меню">
+        <ul class="nav site-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+          <li class="nav-item"><a class="nav-link active" href="catalog.html" aria-current="page">Каталог</a></li>
+          <li class="nav-item"><a class="nav-link" href="order.html">Заказать</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container site-container catalog-main" id="main">
+    <h1>Каталог книг</h1>
+    <!-- Поиск и жанр применяются вместе; обработчик находится в main.js. -->
+    <form id="catalog-filter" class="row g-3 align-items-end mb-4" role="search">
+      <div class="col-md-8 col-lg-9">
+        <label class="form-label" for="search">Название книги или автор</label>
+        <div class="input-group">
+          <input class="form-control" id="search" name="search" type="search" placeholder="Название книги или автор">
+          <button class="btn btn-primary" type="submit">Поиск</button>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-3">
+        <label class="form-label" for="genre">Жанр</label>
+        <select class="form-select" id="genre" name="genre">
+          <option value="">Все жанры</option>
+          <option value="Классика">Классика</option>
+          <option value="Ужасы">Ужасы</option>
+          <option value="Фантастика">Фантастика</option>
+        </select>
+      </div>
+    </form>
+    <p id="catalog-status" class="catalog-status" role="status">Найдено книг: 6</p>
+    <!-- Bootstrap выводит одну, две или три колонки в зависимости от ширины экрана. -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        <div class="col book-item" data-title="Божественная комедия" data-author="Данте Алигьери" data-genres="Классика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="3book.html" aria-label="Подробнее о книге «Божественная комедия»">
+              <img src="images/книга6.jpg" alt="Обложка книги «Божественная комедия»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">Божественная комедия</h3>
+              <p class="book-author">Данте Алигьери</p>
+              <p class="book-price">1239 ₽</p>
+              <a class="btn btn-primary mt-auto" href="3book.html">Подробнее<span class="visually-hidden">: Божественная комедия</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col book-item" data-title="Дракула" data-author="Брэм Стокер" data-genres="Ужасы">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="4book.html" aria-label="Подробнее о книге «Дракула»">
+              <img src="images/книга5.jpg" alt="Обложка книги «Дракула»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">Дракула</h3>
+              <p class="book-author">Брэм Стокер</p>
+              <p class="book-price">2190 ₽</p>
+              <a class="btn btn-primary mt-auto" href="4book.html">Подробнее<span class="visually-hidden">: Дракула</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col book-item" data-title="Далеко за полночь" data-author="Рэй Брэдбери" data-genres="Классика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="5book.html" aria-label="Подробнее о книге «Далеко за полночь»">
+              <img src="images/книга4.jpg" alt="Обложка книги «Далеко за полночь»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">Далеко за полночь</h3>
+              <p class="book-author">Рэй Брэдбери</p>
+              <p class="book-price">340 ₽</p>
+              <a class="btn btn-primary mt-auto" href="5book.html">Подробнее<span class="visually-hidden">: Далеко за полночь</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col book-item" data-title="Канашибари" data-author="Ангелина и Вероника Шен" data-genres="Фантастика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="6book.html" aria-label="Подробнее о книге «Канашибари»">
+              <img src="images/книга2.jpg" alt="Обложка книги «Канашибари»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">Канашибари</h3>
+              <p class="book-author">Ангелина и Вероника Шен</p>
+              <p class="book-price">910 ₽</p>
+              <a class="btn btn-primary mt-auto" href="6book.html">Подробнее<span class="visually-hidden">: Канашибари</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col book-item" data-title="1984" data-author="Джордж Оруэлл" data-genres="Классика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="7book.html" aria-label="Подробнее о книге «1984»">
+              <img src="images/книга3.jpg" alt="Обложка книги «1984»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">1984</h3>
+              <p class="book-author">Джордж Оруэлл</p>
+              <p class="book-price">760 ₽</p>
+              <a class="btn btn-primary mt-auto" href="7book.html">Подробнее<span class="visually-hidden">: 1984</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col book-item" data-title="Косиног" data-author="Джеральд Бром" data-genres="Ужасы Фантастика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="8book.html" aria-label="Подробнее о книге «Косиног»">
+              <img src="images/книга 1.jpg" alt="Обложка книги «Косиног»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">Косиног</h3>
+              <p class="book-author">Джеральд Бром</p>
+              <p class="book-price">890 ₽</p>
+              <a class="btn btn-primary mt-auto" href="8book.html">Подробнее<span class="visually-hidden">: Косиног</span></a>
+            </div>
+          </article>
+        </div>
+    </div>
+    <p class="alert alert-light mt-4" id="no-results" hidden>Книги не найдены. Измените запрос или выберите другой жанр.</p>
+    <noscript><p class="mt-3">Для поиска и фильтра включите JavaScript. Все книги доступны в списке выше.</p></noscript>
+  </main>
+  <!-- Общий подвал сохранён на каждой странице, как в макете Figma. -->
+  <footer class="site-footer">
+    <div class="container site-container row-gap-4 d-flex flex-wrap justify-content-between">
+      <div>
+        <p class="footer-title">Книжный магазин «CICADA»</p>
+        <p class="mb-0">© 2026. Учебный макет.</p>
+      </div>
+      <div>
+        <p class="footer-title">Контакты</p>
+        <a href="mailto:cicadabooks@example.com">cicadabooks@example.com</a>
+        <p class="mb-0 mt-2">Доставка и самовывоз</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

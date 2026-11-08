@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CICADA — учебный книжный магазин. Классика, ужасы и фантастика.">
+  <title>CICADA — Главная</title>
+  <!-- Один и тот же значок вкладки используется на всех страницах. -->
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="images/favicon.png" sizes="64x64">
+  <!-- Сначала подключаем Bootstrap, затем собственные стили макета. -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <!-- Общая шапка: логотип ведёт на главную, меню связывает страницы. -->
+  <header class="site-header">
+    <div class="container site-container header-inner">
+      <a class="navbar-brand brand" href="index.html" aria-label="CICADA — на главную">
+        <img class="brand-logo" src="images/лого1.jpg" alt="Логотип CICADA — цикада" width="50" height="50">
+        <span><span class="brand-name">CICADA</span><span class="brand-caption">Книжный магазин</span></span>
+      </a>
+      <nav aria-label="Основное меню">
+        <ul class="nav site-nav">
+          <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Главная</a></li>
+          <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
+          <li class="nav-item"><a class="nav-link" href="order.html">Заказать</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container site-container home-main" id="main">
+    <!-- Приветственный блок повторяет композицию главного экрана Figma. -->
+    <section class="hero row g-0 align-items-center" aria-labelledby="hero-title">
+      <div class="col-md-8 hero-copy">
+        <h1 id="hero-title">Истории для твоей полки</h1>
+        <p>Классика, ужасы и фэнтези.<br>Выбери следующую историю в каталоге.</p>
+        <a class="btn btn-primary btn-lg" href="catalog.html">В каталог</a>
+      </div>
+      <div class="col-md-4 hero-art">
+        <a href="7book.html" aria-label="Подробнее о книге «1984»">
+          <img src="images/книга3.jpg" alt="Обложка романа «1984» Джорджа Оруэлла" width="204" height="310">
+        </a>
+      </div>
+    </section>
+    <!-- Три карточки популярных книг ведут на отдельные страницы. -->
+    <section class="popular" aria-labelledby="popular-title">
+      <h2 id="popular-title">Популярные книги</h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        <div class="col book-item" data-title="Канашибари" data-author="Ангелина и Вероника Шен" data-genres="Фантастика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="6book.html" aria-label="Подробнее о книге «Канашибари»">
+              <img src="images/книга2.jpg" alt="Обложка книги «Канашибари»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">Канашибари</h3>
+              <p class="book-author">Ангелина и Вероника Шен</p>
+              <p class="book-price">910 ₽</p>
+              <a class="btn btn-primary mt-auto" href="6book.html">Подробнее<span class="visually-hidden">: Канашибари</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col book-item" data-title="1984" data-author="Джордж Оруэлл" data-genres="Классика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="7book.html" aria-label="Подробнее о книге «1984»">
+              <img src="images/книга3.jpg" alt="Обложка книги «1984»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">1984</h3>
+              <p class="book-author">Джордж Оруэлл</p>
+              <p class="book-price">760 ₽</p>
+              <a class="btn btn-primary mt-auto" href="7book.html">Подробнее<span class="visually-hidden">: 1984</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col book-item" data-title="Косиног" data-author="Джеральд Бром" data-genres="Ужасы Фантастика">
+          <article class="card book-card h-100">
+            <a class="book-cover-area" href="8book.html" aria-label="Подробнее о книге «Косиног»">
+              <img src="images/книга 1.jpg" alt="Обложка книги «Косиног»" width="130" height="176" loading="lazy">
+            </a>
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="card-title">Косиног</h3>
+              <p class="book-author">Джеральд Бром</p>
+              <p class="book-price">890 ₽</p>
+              <a class="btn btn-primary mt-auto" href="8book.html">Подробнее<span class="visually-hidden">: Косиног</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <p class="services">Доставка по городу · Самовывоз · Подбор книг</p>
+  </main>
+  <!-- Общий подвал сохранён на каждой странице, как в макете Figma. -->
+  <footer class="site-footer">
+    <div class="container site-container row-gap-4 d-flex flex-wrap justify-content-between">
+      <div>
+        <p class="footer-title">Книжный магазин «CICADA»</p>
+        <p class="mb-0">© 2026. Учебный макет.</p>
+      </div>
+      <div>
+        <p class="footer-title">Контакты</p>
+        <a href="mailto:cicadabooks@example.com">cicadabooks@example.com</a>
+        <p class="mb-0 mt-2">Доставка и самовывоз</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

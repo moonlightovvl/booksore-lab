@@ -1,0 +1,412 @@
+/* Цвета взяты из файла Figma. Переменные позволяют менять всю палитру в одном месте. */
+:root {
+  --paper: #fffbeb;
+  --ink: #1e1338;
+  --purple: #321156;
+  --purple-dark: #140622;
+  --lavender: #beb4c7;
+  --lavender-light: #ddd9e2;
+  --accent: #ffe100;
+  --bs-body-bg: var(--paper);
+  --bs-body-color: var(--ink);
+  --bs-body-font-family: "Batang", Georgia, "Times New Roman", serif;
+  --bs-border-radius: 0;
+  --bs-link-color: var(--purple);
+  --bs-link-hover-color: #592a82;
+}
+
+/* Flex растягивает основное содержимое и удерживает подвал внизу короткой страницы. */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+main {
+  flex: 1;
+  padding-top: 42px;
+  padding-bottom: 44px;
+}
+
+/* Ширина 1292 px соответствует основному блоку макета шириной 1440 px. */
+.site-container {
+  width: calc(100% - 48px);
+  max-width: 1292px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+h1, h2, h3, p {
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+/* Фиолетовая шапка и меню повторяются на всех девяти страницах. */
+.site-header {
+  background: var(--purple);
+  color: white;
+}
+
+.header-inner {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  margin: 0;
+}
+
+.brand:hover, .brand:focus-visible {
+  color: white;
+}
+
+.brand-logo {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brand-name, .brand-caption {
+  display: block;
+}
+
+.brand-name {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.brand-caption {
+  font-size: 18px;
+}
+
+.site-nav {
+  gap: clamp(20px, 4vw, 72px);
+}
+
+.site-nav .nav-link {
+  color: white;
+  font-size: 30px;
+  padding: 8px 0;
+}
+
+.site-nav .nav-link.active, .site-nav .nav-link:hover {
+  color: var(--accent);
+}
+
+/* Компоненты Bootstrap сохраняют поведение, но получают цвета из Figma. */
+.btn-primary {
+  --bs-btn-bg: var(--purple);
+  --bs-btn-border-color: var(--purple);
+  --bs-btn-hover-bg: #51247a;
+  --bs-btn-hover-border-color: #51247a;
+  --bs-btn-active-bg: var(--purple-dark);
+  --bs-btn-active-border-color: var(--purple-dark);
+  --bs-btn-disabled-bg: var(--purple);
+  --bs-btn-disabled-border-color: var(--purple);
+}
+
+.btn-secondary {
+  --bs-btn-bg: var(--lavender);
+  --bs-btn-border-color: var(--lavender);
+  --bs-btn-color: var(--ink);
+  --bs-btn-hover-bg: #a89ab6;
+  --bs-btn-hover-border-color: #a89ab6;
+  --bs-btn-hover-color: var(--ink);
+}
+
+.btn {
+  font-size: 22px;
+  padding: 6px 22px;
+}
+
+.btn-lg {
+  font-size: 26px;
+  padding: 10px 24px;
+}
+
+/* Главная: текст слева, обложка справа; высота баннера взята из макета. */
+.hero {
+  min-height: 344px;
+  background: var(--lavender);
+  padding: 18px 40px;
+}
+
+.hero h1 {
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 28px;
+  margin-bottom: 22px;
+}
+
+.hero-art {
+  text-align: center;
+}
+
+.hero-art img {
+  width: 204px;
+  height: 310px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.popular {
+  margin-top: 32px;
+}
+
+.services {
+  margin: 24px 0 0;
+  font-size: 20px;
+}
+
+/* Обложки показываются целиком, карточки и кнопки выровнены по высоте. */
+.book-card {
+  border: 0;
+  background: var(--lavender-light);
+  min-height: 380px;
+}
+
+.book-cover-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 176px;
+  background: var(--lavender);
+}
+
+.book-cover-area img {
+  width: 130px;
+  height: 176px;
+  object-fit: contain;
+}
+
+.book-card .card-body {
+  padding: 14px 18px 18px;
+}
+
+.book-card .card-title {
+  font-size: 25px;
+  margin-bottom: 4px;
+}
+
+.book-author {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.book-price {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.catalog-status {
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+/* Страница книги: обложка в левой колонке, описание и характеристики справа. */
+.breadcrumb {
+  font-size: 18px;
+  margin-bottom: 32px;
+  --bs-breadcrumb-divider: "/";
+}
+
+.detail-cover {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.detail-author {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.availability {
+  background: #e3f0d9;
+  color: #24521c;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.detail-price {
+  font-size: 36px;
+  margin: 12px 0 20px;
+}
+
+.book-description {
+  max-width: 780px;
+  font-size: 24px;
+}
+
+.characteristics {
+  margin-top: 26px;
+}
+
+.characteristics h2 {
+  font-size: 30px;
+}
+
+.characteristics dt {
+  font-weight: 400;
+}
+
+/* Форма и состав заказа разделены на две колонки сеткой Bootstrap. */
+.order-notice, .form-text {
+  color: #514460;
+  font-size: 16px;
+}
+
+.customer-panel {
+  background: var(--lavender-light);
+  padding: 28px;
+}
+
+.summary-panel {
+  background: var(--lavender);
+  padding: 28px;
+}
+
+.form-label {
+  font-size: 22px;
+}
+
+.form-control, .form-select {
+  font-family: inherit;
+  font-size: 19px;
+  background-color: white;
+  border-color: #8a7b98;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgb(50 17 86 / 15%);
+}
+
+.summary-cover {
+  object-fit: contain;
+}
+
+.summary-panel h3 {
+  font-size: 26px;
+}
+
+.quantity-input {
+  max-width: 110px;
+}
+
+.summary-total {
+  font-size: 32px;
+  margin: 26px 0 0;
+}
+
+/* Подвал одинаковый на всех страницах; длинный email может переноситься. */
+.site-footer {
+  background: var(--purple-dark);
+  color: white;
+  padding: 24px 0;
+  min-height: 140px;
+  font-size: 20px;
+}
+
+.footer-title {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.site-footer a {
+  color: white;
+  overflow-wrap: anywhere;
+}
+
+/* Видимый фокус и ссылка пропуска меню нужны для управления с клавиатуры. */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid #ab7500;
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 10;
+  padding: 10px 16px;
+  background: var(--paper);
+}
+
+.skip-link:focus {
+  top: 10px;
+}
+
+/* hidden должен скрывать карточки даже при подключённых flex-утилитах. */
+[hidden] {
+  display: none !important;
+}
+
+/* На узком экране меню переносится, а крупные шрифты уменьшаются. */
+@media (max-width: 767.98px) {
+  body {
+    font-size: 18px;
+  }
+  .site-container {
+    width: calc(100% - 32px);
+  }
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 0;
+  }
+  .site-nav {
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .site-nav .nav-link {
+    font-size: 23px;
+  }
+  main {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+  .hero {
+    padding: 24px;
+    gap: 24px;
+  }
+  .hero p {
+    font-size: 23px;
+  }
+  .hero-art img {
+    width: 160px;
+    height: auto;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  .customer-panel, .summary-panel {
+    padding: 20px;
+  }
+  .site-footer .site-container {
+    flex-direction: column;
+  }
+}
