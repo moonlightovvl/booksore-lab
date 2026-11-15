@@ -11,7 +11,10 @@
   <!-- Сначала подключаем Bootstrap, затем собственные стили макета. -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/main.js" defer></script>
+  <!-- Библиотека, настройки аналитики и собственный скрипт выполняются по порядку. -->
+  <script src="js/bootstrap.bundle.min.js" defer></script>
+  <script src="analytics-config.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -32,10 +35,11 @@
     </div>
   </header>
   <main class="container site-container order-main" id="main">
-    <h1>Оформление заказа</h1>
+    <h1>Оформление заказа и обратная связь</h1>
     <p class="order-notice">Учебная форма: заказ никуда не отправляется, оплата не производится.</p>
     <!-- Одна форма объединяет данные покупателя и выбор книги. -->
-    <form id="order-form" class="row g-4 g-lg-5">
+    <!-- novalidate отключает автоматическое окно браузера: проверку запускает script.js. -->
+    <form id="order-form" class="row g-4 g-lg-5" aria-label="Заказ и обратная связь" novalidate>
       <div class="col-lg-7">
         <section class="customer-panel" aria-labelledby="customer-title">
           <h2 id="customer-title">Данные покупателя</h2>
@@ -49,7 +53,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label" for="customer-phone">Телефон *</label>
-            <input class="form-control" id="customer-phone" name="phone" type="tel" placeholder="+7 (999) 123-45-67" autocomplete="tel" pattern="[+0-9\(\) \-]{10,20}" aria-describedby="phone-hint" required>
+            <input class="form-control" id="customer-phone" name="phone" type="tel" placeholder="+7 (999) 123-45-67" autocomplete="tel" maxlength="30" aria-describedby="phone-hint" required>
             <div id="phone-hint" class="form-text">От 10 до 15 цифр; допустимы +, пробелы, скобки и дефисы.</div>
           </div>
           <div class="mb-3">
@@ -64,9 +68,12 @@
             <label class="form-label" for="address">Адрес доставки *</label>
             <input class="form-control" id="address" name="address" type="text" autocomplete="street-address" placeholder="Город, улица, дом, квартира" minlength="5" maxlength="200" disabled>
           </div>
+          <div class="mb-3">
+            <label class="form-label" for="message">Сообщение магазину</label>
+            <textarea class="form-control" id="message" name="message" rows="3" maxlength="1000" placeholder="Вопрос о книге или пожелания к заказу"></textarea>
+          </div>
           <p class="form-text">* Обязательные поля. Стоимость доставки в учебной форме не рассчитывается.</p>
           <button class="btn btn-primary btn-lg" id="submit-order" type="submit" disabled>Отправить заказ</button>
-          <p class="alert alert-success mt-3 mb-0" id="order-result" role="status" tabindex="-1" hidden></p>
           <noscript><p class="alert alert-warning mt-3">Для расчёта и проверки учебного заказа включите JavaScript. Форма без него не отправляется.</p></noscript>
         </section>
       </div>
@@ -111,5 +118,22 @@
       </div>
     </div>
   </footer>
+  <!-- Окно Bootstrap показывает результат проверки формы без перехода на другую страницу. -->
+  <div class="modal" id="feedback-modal" tabindex="-1" aria-labelledby="feedback-title" aria-describedby="feedback-message" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-4" id="feedback-title">Результат обработки</h2>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <p id="feedback-message" class="mb-0"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Понятно</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

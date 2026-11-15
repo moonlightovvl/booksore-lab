@@ -1,15 +1,14 @@
 "use strict";
 
-// Поиск по каталогу работает только на странице, где есть форма фильтра.
+// Один файл подключён ко всем страницам; каждый блок проверяет наличие своих элементов.
 const catalogFilter = document.querySelector("#catalog-filter");
 if (catalogFilter) {
   const search = document.querySelector("#search");
   const genre = document.querySelector("#genre");
-  const cards = Array.from(document.querySelectorAll(".book-item"));
+  const cards = document.querySelectorAll(".book-item");
   const status = document.querySelector("#catalog-status");
   const noResults = document.querySelector("#no-results");
 
-  // Регистр, лишние пробелы и различие между е/ё не мешают поиску.
   function normalize(text) {
     return text.toLocaleLowerCase("ru").replaceAll("ё", "е").trim();
   }
@@ -33,7 +32,6 @@ if (catalogFilter) {
     noResults.hidden = count !== 0;
   }
 
-  // Отменяем перезагрузку страницы и обновляем список сразу при вводе.
   catalogFilter.addEventListener("submit", (event) => {
     event.preventDefault();
     filterBooks();
@@ -43,7 +41,6 @@ if (catalogFilter) {
   filterBooks();
 }
 
-// Код заказа выполняется только при наличии формы заказа на странице.
 const orderForm = document.querySelector("#order-form");
 if (orderForm) {
   const bookSelect = document.querySelector("#book-select");
@@ -52,12 +49,14 @@ if (orderForm) {
   const addressGroup = document.querySelector("#address-group");
   const address = document.querySelector("#address");
   const phone = document.querySelector("#customer-phone");
+  const email = document.querySelector("#customer-email");
   const customerName = document.querySelector("#customer-name");
   const total = document.querySelector("#order-total");
-  const result = document.querySelector("#order-result");
   const submit = document.querySelector("#submit-order");
+  const modalElement = document.querySelector("#feedback-modal");
+  const modal = new bootstrap.Modal(modalElement);
+  let returnFocus = submit;
 
-  // Параметр book берём из ссылки «Оформить заказ» и сверяем с готовыми option.
   const requestedBook = new URLSearchParams(window.location.search).get("book");
   if (Array.from(bookSelect.options).some((option) => option.value === requestedBook)) {
     bookSelect.value = requestedBook;
@@ -69,7 +68,6 @@ if (orderForm) {
     maximumFractionDigits: 0,
   });
 
-  // Данные выбранной книги читаем из HTML, чтобы не дублировать прайс в JS.
   function updateSummary() {
     const book = bookSelect.selectedOptions[0];
     const cover = document.querySelector("#summary-cover");
@@ -82,7 +80,6 @@ if (orderForm) {
     total.value = validCount ? rubles.format(Number(book.dataset.price) * count) : "Укажите от 1 до 99 книг";
   }
 
-  // Скрытое поле адреса не должно мешать оформлению самовывоза.
   function updateDelivery() {
     const needsAddress = delivery.value === "courier";
     addressGroup.hidden = !needsAddress;
@@ -90,51 +87,81 @@ if (orderForm) {
     address.required = needsAddress;
   }
 
-  // type="tel" сам не проверяет количество цифр, поэтому уточняем проверку.
-  function validatePhone() {
+  // type="tel" не проверяет телефон сам: считаем цифры и проверяем допустимые символы.
+  function validateFields() {
     const digits = phone.value.replace(/\D/g, "");
-    const valid = digits.length >= 10 && digits.length <= 15;
-    phone.setCustomValidity(valid ? "" : "Введите телефон: от 10 до 15 цифр.");
-  }
-
-  function validateText() {
+    const validPhone = /^[+0-9() -]+$/.test(phone.value) && digits.length >= 10 && digits.length <= 15;
+    phone.setCustomValidity(validPhone ? "" : "Введите телефон: от 10 до 15 цифр, без букв.");
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+    email.setCustomValidity(validEmail ? "" : "Введите email в формате name@example.com.");
     customerName.setCustomValidity(customerName.value.trim().length >= 2 ? "" : "Введите имя: хотя бы два символа.");
     address.setCustomValidity(address.disabled || address.value.trim().length >= 5 ? "" : "Введите полный адрес доставки.");
   }
 
-  // После изменения данных старое сообщение о проверке больше не актуально.
+  function showMessage(title, message, isError) {
+    document.querySelector("#feedback-title").textContent = title;
+    document.querySelector("#feedback-message").textContent = message;
+    modalElement.classList.toggle("feedback-error", isError);
+    modal.show();
+  }
+
+  modalElement.addEventListener("hidden.bs.modal", () => {
+    returnFocus.focus();
+  });
+
   orderForm.addEventListener("input", () => {
-    result.hidden = true;
-    validatePhone();
-    validateText();
+    validateFields();
     updateSummary();
   });
   orderForm.addEventListener("change", () => {
-    result.hidden = true;
     updateDelivery();
-    validateText();
+    validateFields();
     updateSummary();
   });
 
-  // Это локальная демонстрация: сетевого запроса и сохранения личных данных нет.
+  // novalidate в HTML даёт обработчику submit показать своё окно даже при ошибке.
   orderForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    validatePhone();
-    validateText();
-    if (!orderForm.reportValidity()) {
+    updateDelivery();
+    validateFields();
+    orderForm.classList.add("was-validated");
+    if (!orderForm.checkValidity()) {
+      returnFocus = orderForm.querySelector(":invalid");
+      showMessage("Проверьте данные", `${returnFocus.labels[0].textContent}: ${returnFocus.validationMessage}`, true);
       return;
     }
-    const title = bookSelect.selectedOptions[0].dataset.title;
-    const method = delivery.value === "courier" ? "Доставка" : "Самовывоз";
-    result.textContent = `Учебный заказ проверен: «${title}», ${quantity.value} шт., ${total.value}. ${method}. Данные никуда не отправлены.`;
-    result.hidden = false;
-    result.focus();
+
+    const data = Object.fromEntries(new FormData(orderForm));
+    data.customerName = data.customerName.trim();
+    data.quantity = quantity.valueAsNumber;
+    data.bookTitle = bookSelect.selectedOptions[0].dataset.title;
+    data.total = Number(bookSelect.selectedOptions[0].dataset.price) * data.quantity;
+    console.log("Данные учебной формы CICADA:", data);
+    returnFocus = submit;
+    showMessage("Данные успешно обработаны", `Учебный заказ: «${data.bookTitle}», ${data.quantity} шт., ${rubles.format(data.total)}. Данные выведены в консоль. Отправка в магазин в учебной версии не выполняется.`, false);
   });
 
   updateSummary();
   updateDelivery();
-  validatePhone();
-  validateText();
-  // Активируем кнопку лишь после установки обработчика, исключая отправку без JS.
+  validateFields();
   submit.disabled = false;
+}
+
+// ID задаётся в analytics-config.js; без него сетевой запрос не выполняется.
+const analyticsId = window.CICADA_GA_ID;
+if (/^G-[A-Z0-9]+$/.test(analyticsId) && window.location.hostname === "moonlightovvl.github.io") {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", analyticsId, {
+    page_location: window.location.origin + window.location.pathname,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+  });
+  const analyticsScript = document.createElement("script");
+  analyticsScript.async = true;
+  analyticsScript.src = `https://www.googletagmanager.com/gtag/js?id=${analyticsId}`;
+  document.head.append(analyticsScript);
 }

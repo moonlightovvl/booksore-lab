@@ -11,7 +11,10 @@
   <!-- Сначала подключаем Bootstrap, затем собственные стили макета. -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/main.js" defer></script>
+  <!-- Библиотека, настройки аналитики и собственный скрипт выполняются по порядку. -->
+  <script src="js/bootstrap.bundle.min.js" defer></script>
+  <script src="analytics-config.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -33,12 +36,12 @@
   </header>
   <main class="container site-container catalog-main" id="main">
     <h1>Каталог книг</h1>
-    <!-- Поиск и жанр применяются вместе; обработчик находится в main.js. -->
+    <!-- Поиск и жанр применяются вместе; обработчик находится в script.js. -->
     <form id="catalog-filter" class="row g-3 align-items-end mb-4" role="search">
       <div class="col-md-8 col-lg-9">
         <label class="form-label" for="search">Название книги или автор</label>
         <div class="input-group">
-          <input class="form-control" id="search" name="search" type="search" placeholder="Название книги или автор">
+          <input class="form-control" id="search" name="search" type="text" placeholder="Название книги или автор">
           <button class="btn btn-primary" type="submit">Поиск</button>
         </div>
       </div>
@@ -116,7 +119,7 @@
               <h3 class="card-title">1984</h3>
               <p class="book-author">Джордж Оруэлл</p>
               <p class="book-price">760 ₽</p>
-              <a class="btn btn-primary mt-auto" href="7book.html">Подробнее<span class="visually-hidden">: 1984</span></a>
+              <a class="btn mt-auto" style="background-color: red;" href="7book.html">Подробнее<span class="visually-hidden">: 1984</span></a>
             </div>
           </article>
         </div>

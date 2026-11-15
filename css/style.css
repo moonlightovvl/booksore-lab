@@ -113,7 +113,7 @@ h2 {
 
 /* Компоненты Bootstrap сохраняют поведение, но получают цвета из Figma. */
 .btn-primary {
-  --bs-btn-bg: var(--purple);
+  --bs-btn-bg:var(--purple);
   --bs-btn-border-color: var(--purple);
   --bs-btn-hover-bg: #51247a;
   --bs-btn-hover-border-color: #51247a;
@@ -409,4 +409,13 @@ a:focus-visible, button:focus-visible {
   .site-footer .site-container {
     flex-direction: column;
   }
+}
+
+/* Окно результата оформлено в цветах магазина. */
+.modal-header {
+  background: var(--lavender);
+}
+
+.feedback-error .modal-header {
+  background: #f8d7da;
 }
