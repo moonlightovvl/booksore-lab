@@ -1,0 +1,9 @@
+.server-message { margin: 0 0 1.5rem; padding: 1rem 1.25rem; border: 2px solid var(--purple); background: #f0f5e9; }
+.server-message.error { background: #fff0ee; border-color: #a32630; }
+.demo-banner { padding: .8rem 1.25rem; background: var(--accent); color: var(--ink); font: 16px/1.5 system-ui, sans-serif; text-align: center; }
+.demo-banner a { font-weight: 700; }
+.db-table { font: 16px/1.5 system-ui, sans-serif; }
+.db-table input { min-width: 7rem; }
+.db-description { max-width: 70ch; }
+code, pre { overflow-wrap: anywhere; }
+@media (max-width: 575px) { .site-container { width: calc(100% - 32px); } }

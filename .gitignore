@@ -1,1 +1,10 @@
 *.md
+app/config.local.php
+runtime/
+tools/
+*.log
+__pycache__/
+.env
+ПОДРОБНЫЙ-РАЗБОР-ЛАБЫ-4.html
+ЗАЩИТА-ОФЛАЙН.html
+РЕЗУЛЬТАТЫ-ПРОВЕРКИ.html
